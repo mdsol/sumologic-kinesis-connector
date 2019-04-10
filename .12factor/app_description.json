@@ -1,0 +1,75 @@
+{
+  "config_schema": {
+    "type": "object",
+    "properties": {
+      "AWS_DEFAULT_REGION": {
+        "type": "string"
+      },
+      "appName": {
+        "type": "string"
+      },
+      "regionName": {
+        "type": "string"
+      },
+      "retryLimit": {
+        "type": "integer"
+      },
+      "backoffInterval": {
+        "type": "integer"
+      },
+      "bufferRecordCountLimit": {
+        "type": "integer"
+      },
+      "bufferMillisecondsLimit": {
+        "type": "integer"
+      },
+      "kinesisInputStream": {
+        "type": "string"
+      },
+      "createKinesisInputStream": {
+        "type": "boolean"
+      },
+      "createKinesisOutputStream": {
+        "type": "boolean"
+      },
+      "transformerClass": {
+        "type": "string"
+      },
+      "connectorDestination": {
+        "type": "string"
+      },
+      "sumologicUrl": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "AWS_DEFAULT_REGION",
+      "appName",
+      "regionName",
+      "retryLimit",
+      "backoffInterval",
+      "bufferRecordCountLimit",
+      "bufferMillisecondsLimit",
+      "kinesisInputStream",
+      "createKinesisInputStream",
+      "createKinesisOutputStream",
+      "transformerClass",
+      "connectorDestination",
+      "sumologicUrl"
+    ]
+  },
+  "deploy_env": {
+    "cmd_release": [],
+    "processes": {
+      "worker": "java -jar /home/app/worker/target/kinesis-sumologic-connector-0.2.jar use-env"
+    },
+    "listening_ports": {
+      "worker" : []
+    },
+    "max_ram": {
+      "worker" : 2048
+    },
+    "admin_tasks": {},
+    "deploy_tasks": ["worker"]
+  }
+}
