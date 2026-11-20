@@ -1,0 +1,31 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+  release:
+    types:
+      - published
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: The stage to deploy to ad hoc.
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    name: Deploy
+    uses: mdsol/mdsol-cicd-workflows/.github/workflows/helm-build-deploy.yaml@v1
+    secrets: inherit
+    with:
+      chart_path: "charts/sumologic-kinesis-connector"
+      dockerfile_path: ".12factor"
+      nonprod_account_id: "{NONPROD_ACCOUNT_ID}"
+      prod_account_id: "{PROD_ACCOUNT_ID}"
+      nonprod_eks_cluster_name: "{NONPROD_EKS_CLUSTER_NAME}"
+      prod_eks_cluster_name: "{PROD_EKS_CLUSTER_NAME}"
+      nonprod_iam_role_name: "{NONPROD_IAM_ROLE_NAME}"
+      prod_iam_role_name: "{PROD_IAM_ROLE_NAME}"
+      stage: ${{ github.event.inputs.stage || 'sandbox' }}
