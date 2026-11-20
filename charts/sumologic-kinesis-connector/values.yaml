@@ -1,0 +1,42 @@
+global:
+  serviceName: sumologic-kinesis-connector
+  serviceNamePrefix: sumologic-kinesis-connector
+  stageName: ""
+
+worker:
+  deployment:
+    enabled: true
+    replicas: 1
+    command:
+      - java
+      - -jar
+      - /home/app/worker/target/kinesis-sumologic-connector-0.2.jar
+      - use-env
+    resources:
+      limits:
+        memory: 2048Mi
+    envFrom:
+      worker-config:
+        type: configmap
+        name: worker-config
+      worker-secrets:
+        type: secret
+        name: worker-secrets
+  service:
+    enabled: false
+  configMap:
+    enabled: true
+    configs:
+      worker-config:
+        AWS_DEFAULT_REGION: "{AWS_DEFAULT_REGION}"
+        appName: "{APPNAME}"
+        regionName: "{REGIONNAME}"
+        retryLimit: "{RETRYLIMIT}"
+        backoffInterval: "{BACKOFFINTERVAL}"
+        bufferRecordCountLimit: "{BUFFERRECORDCOUNTLIMIT}"
+        bufferMillisecondsLimit: "{BUFFERMILLISECONDSLIMIT}"
+        kinesisInputStream: "{KINESISINPUTSTREAM}"
+        createKinesisInputStream: "{CREATEKINESISINPUTSTREAM}"
+        createKinesisOutputStream: "{CREATEKINESISOUTPUTSTREAM}"
+        transformerClass: "{TRANSFORMERCLASS}"
+        connectorDestination: "{CONNECTORDESTINATION}"

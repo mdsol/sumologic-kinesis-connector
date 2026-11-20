@@ -1,0 +1,13 @@
+apiVersion: v2
+name: sumologic-kinesis-connector
+description: Kinesis to Sumo Logic worker
+type: application
+version: 0.1.0
+dependencies:
+  - name: 12factor
+    alias: worker
+    version: "1.2.0"
+    repository: "https://mdsol.jfrog.io/artifactory/api/helm/helm-prod-virtual"
+
+# Create one AWS Secrets Manager object per stage for worker, with key sumologicUrl.
+# Replace all placeholders and review stage configuration before deploying.

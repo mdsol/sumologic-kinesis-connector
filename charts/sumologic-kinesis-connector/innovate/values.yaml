@@ -1,0 +1,14 @@
+global:
+  stageName: innovate
+  image:
+    repository: "{DOCKER_IMAGE_REPOSITORY_INNOVATE}"
+
+worker:
+  rbac:
+    serviceAccount:
+      roleArn: "{ROLE_ARN_INNOVATE_WORKER}"
+  externalSecret:
+    enabled: true
+    secrets:
+      worker-secrets:
+        name: "{AWS_SECRET_NAME_INNOVATE_WORKER}"

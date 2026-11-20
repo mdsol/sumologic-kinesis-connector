@@ -1,0 +1,14 @@
+global:
+  stageName: validation
+  image:
+    repository: "{DOCKER_IMAGE_REPOSITORY_VALIDATION}"
+
+worker:
+  rbac:
+    serviceAccount:
+      roleArn: "{ROLE_ARN_VALIDATION_WORKER}"
+  externalSecret:
+    enabled: true
+    secrets:
+      worker-secrets:
+        name: "{AWS_SECRET_NAME_VALIDATION_WORKER}"
